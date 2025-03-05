@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import TypedDict
+from dataclasses import dataclass
 
 
 class ProjectType(Enum):
@@ -7,8 +7,9 @@ class ProjectType(Enum):
     DIRECT_REMOVAL = "direct_removal"
 
 
-class Project(TypedDict):
-  id: id
+@dataclass
+class Project:
+  id: int
   name: str
   type: ProjectType
   description: str

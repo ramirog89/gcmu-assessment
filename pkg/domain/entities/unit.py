@@ -1,15 +1,16 @@
 from enum import Enum
-from typing import TypedDict, Optional
-
+from typing import Optional
+from dataclasses import dataclass
 
 class UnitStatus(Enum):
     ACTIVE = "active"
     RETIRED = "retired"
 
 
-class Unit(TypedDict):
+@dataclass
+class Unit:
   id: int
   issuance_id: int
-  owner: Optional[str] = None
+  owner: Optional[str]
   credits: int
   status: UnitStatus
