@@ -1,4 +1,10 @@
+## IDE
 .venv
 .vscode
-*.pyc
+
+## PYTHON
 __pycache__
+*.pyc
+
+## OTHERS
+*.json
