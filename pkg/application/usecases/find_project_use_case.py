@@ -1,6 +1,6 @@
 from pkg.infrastructure.repository import ProjectRepository, IssuanceRepository, UnitRepository
 
-class FindProjectUseCase:
+class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
 
     def __init__(
         self,
@@ -13,9 +13,6 @@ class FindProjectUseCase:
         self.unit_repository = unit_repository
 
     def execute(self):
-        print("project data")
-        print(self.project_repository._entries)
-        print("issuance data")
-        print(self.issuance_repository._entries)
-        print("unit data")
-        print(self.unit_repository._entries)
+        verified_issuances = self.issuance_repository.get_verified()
+        print(f"verified inssuances: {verified_issuances}")
+
