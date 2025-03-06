@@ -50,28 +50,26 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
         if self.is_projects_empty(projects):
             return 0, 0
 
-        project = self.get_proyect_by_type(projects, type)
-        if not project:
+        projects_by_type = self.get_proyects_by_type(projects, type)
+        if len(projects_by_type) == 0:
             return 0, 0
 
-        project_issuance_ids = self.get_project_issuance_ids(issuances=issuances, project_id=project.id)
         t_units = 0
         t_credits = 0
-        for u in units:
-            if u.issuance_id in project_issuance_ids:
-                t_units += 1
-                t_credits += u.credits
+        for project in projects_by_type:
+            project_issuance_ids = self.get_project_issuance_ids(issuances=issuances, project_id=project.id)
+            for u in units:
+                if u.issuance_id in project_issuance_ids:
+                    t_units += 1
+                    t_credits += u.credits
 
         return t_units, t_credits
 
     def is_projects_empty(self, projects) -> bool:
         return len(projects) == 0
 
-    def get_proyect_by_type(self, projects, type) -> Project | None:
-        try:
-            return next(filter(lambda p: p.type == type, projects))
-        except:
-            return None
+    def get_proyects_by_type(self, projects, type) -> List[Project]:
+        return list(filter(lambda p: p.type == type, projects))
 
     def get_project_issuance_ids(self, issuances: List[Issuance], project_id: int) -> List[int]:
         return [i.id for i in issuances if i.project_id == project_id]

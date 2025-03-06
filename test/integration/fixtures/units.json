@@ -1,0 +1,96 @@
+[
+  {
+    "id": 7809,
+    "issuance_id": 5678,
+    "owner": "Net Zero Airlines",
+    "credits": 10,
+    "status": "active"
+  },
+  {
+    "id": 7809,
+    "issuance_id": 5678,
+    "owner": null,
+    "credits": 10,
+    "status": "active"
+  },
+  {
+    "id": 7809,
+    "issuance_id": 5679,
+    "owner": null,
+    "credits": 63,
+    "status": "active"
+  },
+
+
+
+  {
+    "id": 7810,
+    "issuance_id": 5680,
+    "owner": null,
+    "credits": 63,
+    "status": "active"
+  },
+  {
+    "id": 7811,
+    "issuance_id": 5680,
+    "owner": null,
+    "credits": 100,
+    "status": "active"
+  },
+  {
+    "id": 7812,
+    "issuance_id": 5680,
+    "owner": null,
+    "credits": 21,
+    "status": "active"
+  },
+  {
+    "id": 7813,
+    "issuance_id": 5680,
+    "owner": null,
+    "credits": 44,
+    "status": "retired"
+  },
+  {
+    "id": 7814,
+    "issuance_id": 5680,
+    "owner": "With Owner",
+    "credits": 10,
+    "status": "active"
+  },
+  {
+    "id": 7815,
+    "issuance_id": 5680,
+    "owner": "With Owner",
+    "credits": 200,
+    "status": "retired"
+  },
+  {
+    "id": 7816,
+    "issuance_id": 5680,
+    "owner": null,
+    "credits": 79,
+    "status": "active"
+  },
+  {
+    "id": 7817,
+    "issuance_id": 5684,
+    "owner": null,
+    "credits": 100,
+    "status": "active"
+  },
+  {
+    "id": 7817,
+    "issuance_id": 5685,
+    "owner": null,
+    "credits": 1000,
+    "status": "active"
+  },
+  {
+    "id": 7817,
+    "issuance_id": 5686,
+    "owner": null,
+    "credits": 20,
+    "status": "active"
+  }
+]
