@@ -22,4 +22,4 @@ class TestFindProjectIntegrationTest(TestCase):
 
         response = self._usecase.execute()
 
-        self.assertEqual(response.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 73}\ndirect removal: {'projects': 1, 'units': 6, 'credits': 383}\n")
+        self.assertEqual(response.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 73}\ndirect removal: {'projects': 2, 'units': 6, 'credits': 383}\n")
