@@ -44,7 +44,7 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCaseTest(TestCase):
         self.maxDiff = None
         result = self._usecase.execute()
 
-        self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect_removal: {'projects': 1, 'units': 1, 'credits': 64}\n")
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect removal: {'projects': 1, 'units': 1, 'credits': 64}\n")
 
     def test_execute_should_return_expected_result_when_only_one_project_with_issuance(self):
         self._project_repository._entries = [
@@ -64,7 +64,7 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCaseTest(TestCase):
         self.maxDiff = None
         result = self._usecase.execute()
 
-        self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
 
     def test_execute_should_return_expected_result_when_no_verified_issuances(self):
         self._project_repository._entries = [
@@ -82,7 +82,7 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCaseTest(TestCase):
         self.maxDiff = None
         result = self._usecase.execute()
 
-        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
 
     def test_execute_should_return_expected_result_when_no_active_units(self):
         self._project_repository._entries = [
@@ -100,4 +100,4 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCaseTest(TestCase):
         self.maxDiff = None
         result = self._usecase.execute()
 
-        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect removal: {'projects': 0, 'units': 0, 'credits': 0}\n")

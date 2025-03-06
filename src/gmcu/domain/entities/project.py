@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 class ProjectType(Enum):
     REFORESTATION = "reforestation"
-    DIRECT_REMOVAL = "direct_removal"
+    DIRECT_REMOVAL = "direct removal"
 
 
 @dataclass

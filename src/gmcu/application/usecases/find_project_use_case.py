@@ -2,11 +2,7 @@ from typing import List, Tuple
 
 from src.gmcu.application.dtos import ResponseDto, DataDto
 from src.gmcu.domain.entities import Project, ProjectType, Issuance, Unit
-from src.gmcu.infrastructure.repository import (
-  ProjectRepository,
-  IssuanceRepository,
-  UnitRepository
-)
+from src.gmcu.infrastructure.repository import ProjectRepository, IssuanceRepository, UnitRepository
 
 
 class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
@@ -32,23 +28,10 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
 
         for type in ProjectType:
             p_total = self.count_projects_by_type(projects, type.value)
-            u_total, c_total = self.count_active_credits_without_owner(
-                projects=projects,
-                issuances=issuances,
-                units=units,
-                type=type.value
-            )
-            response.append(
-                type=type.value,
-                data=DataDto(
-                    projects=p_total,
-                    units=u_total,
-                    credits=c_total
-                )
-            )
+            u_total, c_total = self.count_active_credits_without_owner(projects=projects, issuances=issuances, units=units, type=type.value)
+            response.append(type=type.value, data=DataDto(projects=p_total, units=u_total, credits=c_total))
 
         return response
-
 
     def count_projects_by_type(
         self,
@@ -64,25 +47,31 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
         units: List[Unit],
         type: str
     ) -> Tuple[int, int]:
-        if len(projects) == 0:
+        if self.is_projects_empty(projects):
             return 0, 0
 
-        project = self._get_proyect_by_type(projects, type)
+        project = self.get_proyect_by_type(projects, type)
         if not project:
             return 0, 0
 
-        project_issuances = [i.id for i in issuances if i.project_id == project.id]
+        project_issuance_ids = self.get_project_issuance_ids(issuances=issuances, project_id=project.id)
         t_units = 0
         t_credits = 0
         for u in units:
-            if u.issuance_id in project_issuances:
+            if u.issuance_id in project_issuance_ids:
                 t_units += 1
                 t_credits += u.credits
 
         return t_units, t_credits
 
-    def _get_proyect_by_type(self, projects, type) -> Project | None:
+    def is_projects_empty(self, projects) -> bool:
+        return len(projects) == 0
+
+    def get_proyect_by_type(self, projects, type) -> Project | None:
         try:
             return next(filter(lambda p: p.type == type, projects))
         except:
             return None
+
+    def get_project_issuance_ids(self, issuances: List[Issuance], project_id: int) -> List[int]:
+        return [i.id for i in issuances if i.project_id == project_id]
