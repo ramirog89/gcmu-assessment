@@ -4,6 +4,7 @@
 ## PYTHON
 __pycache__
 *.pyc
+.pytest_cache
 
 ## OTHERS
 *.json
