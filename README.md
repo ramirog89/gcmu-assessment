@@ -20,4 +20,4 @@ python -m pytest
 
 ## Notes
 
-Given the exercise was simple enough and without so many Variants on the requirements, I decided to Not use an AI generator, although it could be useful to generate a DataSet for testing purposes.
+Given the exercise was simple enough and without so many Variants on the requirements, I decided not to use AI generator, although it could be useful to generate DataSets for testing purposes.
