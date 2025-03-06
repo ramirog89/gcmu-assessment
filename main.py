@@ -19,4 +19,6 @@ project_use_case = FindProjectWithVerifiedInssuanceWithNoOwnerUseCase(
   unit_repository=unit_repository
 )
 
-project_use_case.execute()
+response = project_use_case.execute()
+
+print(response)

@@ -14,3 +14,9 @@ class Unit:
   owner: Optional[str]
   credits: int
   status: UnitStatus
+
+  def is_active(self) -> bool:
+    return self.status == UnitStatus.ACTIVE.value
+
+  def has_owner(self) -> bool:
+     return self.owner != None
