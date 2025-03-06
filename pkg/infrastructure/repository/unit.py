@@ -6,6 +6,8 @@ from pkg.infrastructure.repository.base import BaseRepository
 
 class UnitRepository(BaseRepository):
 
+    _entries: List[Unit]
+
     def __init__(self, file_path: str):
         super().__init__(file_path, cls=Unit)
 
