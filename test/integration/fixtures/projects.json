@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1234,
+    "name": "Curitiba Forest Restoration",
+    "type": "reforestation",
+    "description": "..."
+  },
+  {
+    "id": 1235,
+    "name": "Another One Direct Removal 1",
+    "type": "direct_removal",
+    "description": "..."
+  },
+  {
+    "id": 1236,
+    "name": "Another One Direct Removal 2",
+    "type": "direct_removal",
+    "description": "..."
+  },
+  {
+    "id": 1237,
+    "name": "SomeOther Forest Restoration 2",
+    "type": "reforestation",
+    "description": "..."
+  }
+]
