@@ -1,8 +1,8 @@
 from typing import List, Tuple
 
-from pkg.application.dtos import ResponseDto, DataDto
-from pkg.domain.entities import Project, ProjectType, Issuance, Unit
-from pkg.infrastructure.repository import (
+from src.gmcu.application.dtos import ResponseDto, DataDto
+from src.gmcu.domain.entities import Project, ProjectType, Issuance, Unit
+from src.gmcu.infrastructure.repository import (
   ProjectRepository,
   IssuanceRepository,
   UnitRepository
@@ -29,6 +29,7 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
         projects = self.project_repository.find_by_ids(ids=project_ids)
 
         response = ResponseDto()
+
         for type in ProjectType:
             p_total = self.count_projects_by_type(projects, type.value)
             u_total, c_total = self.count_active_credits_without_owner(
@@ -63,7 +64,13 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
         units: List[Unit],
         type: str
     ) -> Tuple[int, int]:
-        project = next(filter(lambda p: p.type == type, projects))
+        if len(projects) == 0:
+            return 0, 0
+
+        project = self._get_proyect_by_type(projects, type)
+        if not project:
+            return 0, 0
+
         project_issuances = [i.id for i in issuances if i.project_id == project.id]
         t_units = 0
         t_credits = 0
@@ -73,3 +80,9 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCase:
                 t_credits += u.credits
 
         return t_units, t_credits
+
+    def _get_proyect_by_type(self, projects, type) -> Project | None:
+        try:
+            return next(filter(lambda p: p.type == type, projects))
+        except:
+            return None

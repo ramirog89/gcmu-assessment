@@ -1,7 +1,7 @@
 from typing import List
 
-from pkg.domain.entities.unit import Unit
-from pkg.infrastructure.repository.base import BaseRepository
+from src.gmcu.domain.entities.unit import Unit
+from src.gmcu.infrastructure.repository.base import BaseRepository
 
 
 class UnitRepository(BaseRepository):
