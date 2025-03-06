@@ -45,3 +45,59 @@ class FindProjectWithVerifiedInssuanceWithNoOwnerUseCaseTest(TestCase):
         result = self._usecase.execute()
 
         self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect_removal: {'projects': 1, 'units': 1, 'credits': 64}\n")
+
+    def test_execute_should_return_expected_result_when_only_one_project_with_issuance(self):
+        self._project_repository._entries = [
+            Project(id=1, name="Test Project 1", type=ProjectType.REFORESTATION.value, description="..."),
+            Project(id=2, name="Test Project 2", type=ProjectType.DIRECT_REMOVAL.value, description="..."),
+        ]
+        self._issuance_repository._entries = [
+            Issuance(id=1, date="2025-02-01", project_id=1, verified=True),
+            Issuance(id=3, date="2024-03-17", project_id=1, verified=False),
+        ]
+        self._unit_repository._entries = [
+            Unit(id=1, issuance_id=1, owner=None, credits=10, status=UnitStatus.ACTIVE.value),
+            Unit(id=2, issuance_id=1, owner=None, credits=10, status=UnitStatus.RETIRED.value),
+            Unit(id=3, issuance_id=1, owner="Owner", credits=10, status=UnitStatus.ACTIVE.value),
+            Unit(id=4, issuance_id=1, owner=None, credits=70, status=UnitStatus.ACTIVE.value),
+        ]
+        self.maxDiff = None
+        result = self._usecase.execute()
+
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 1, 'units': 2, 'credits': 80}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
+
+    def test_execute_should_return_expected_result_when_no_verified_issuances(self):
+        self._project_repository._entries = [
+            Project(id=1, name="Test Project 1", type=ProjectType.REFORESTATION.value, description="..."),
+            Project(id=2, name="Test Project 2", type=ProjectType.DIRECT_REMOVAL.value, description="..."),
+        ]
+        self._issuance_repository._entries = [
+            Issuance(id=1, date="2025-02-01", project_id=1, verified=False),
+            Issuance(id=3, date="2024-03-17", project_id=2, verified=False),
+        ]
+        self._unit_repository._entries = [
+            Unit(id=1, issuance_id=1, owner=None, credits=10, status=UnitStatus.ACTIVE.value),
+            Unit(id=2, issuance_id=1, owner=None, credits=10, status=UnitStatus.ACTIVE.value),
+        ]
+        self.maxDiff = None
+        result = self._usecase.execute()
+
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
+
+    def test_execute_should_return_expected_result_when_no_active_units(self):
+        self._project_repository._entries = [
+            Project(id=1, name="Test Project 1", type=ProjectType.REFORESTATION.value, description="..."),
+            Project(id=2, name="Test Project 2", type=ProjectType.DIRECT_REMOVAL.value, description="..."),
+        ]
+        self._issuance_repository._entries = [
+            Issuance(id=1, date="2025-02-01", project_id=1, verified=True),
+            Issuance(id=3, date="2024-03-17", project_id=2, verified=True),
+        ]
+        self._unit_repository._entries = [
+            Unit(id=1, issuance_id=1, owner=None, credits=10, status=UnitStatus.RETIRED.value),
+            Unit(id=2, issuance_id=1, owner=None, credits=10, status=UnitStatus.RETIRED.value),
+        ]
+        self.maxDiff = None
+        result = self._usecase.execute()
+
+        self.assertEqual(result.__str__(), "reforestation: {'projects': 0, 'units': 0, 'credits': 0}\ndirect_removal: {'projects': 0, 'units': 0, 'credits': 0}\n")
